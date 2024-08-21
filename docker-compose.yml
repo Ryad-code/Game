@@ -1,0 +1,41 @@
+version: "3.9"
+
+#===============================FRONTEND_CONTAINER
+services:
+  frontend:
+    container_name: front
+    build:
+      context: front/
+      dockerfile: Dockerfile
+    volumes:
+      - frontend:/app
+    ports:
+      - 3000:3000
+    env_file: .env
+    networks:
+      - transcendance
+  #==============================BACKEND_CONTAINER
+  # backend:
+  #   container_name: back
+  #   build:
+  #     context: back/
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - backend:/app
+  #   ports:
+  #     - 5000:5000
+  #   env_file: .env
+  #   networks:
+  #     - transcendance
+#==============================VOLUMES
+volumes:
+  frontend:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${PWD}/front/app"
+#==============================NETWORK
+networks:
+  transcendance:
+    driver: bridge
