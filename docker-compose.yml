@@ -15,18 +15,18 @@ services:
     networks:
       - transcendance
   #==============================BACKEND_CONTAINER
-  # backend:
-  #   container_name: back
-  #   build:
-  #     context: back/
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - backend:/app
-  #   ports:
-  #     - 5000:5000
-  #   env_file: .env
-  #   networks:
-  #     - transcendance
+  backend:
+    container_name: back
+    build:
+      context: back/
+      dockerfile: Dockerfile
+    volumes:
+      - backend:/src
+    ports:
+      - 5000:5000
+    env_file: .env
+    networks:
+      - transcendance
 #==============================VOLUMES
 volumes:
   frontend:
@@ -35,6 +35,12 @@ volumes:
       type: "none"
       o: "bind"
       device: "${PWD}/front/app"
+  backend:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${PWD}/back/src"
 #==============================NETWORK
 networks:
   transcendance:
