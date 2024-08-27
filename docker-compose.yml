@@ -13,7 +13,7 @@ services:
       - 3000:3000
     env_file: .env
     networks:
-      - transcendance
+      - game_network
   #==============================BACKEND_CONTAINER
   backend:
     container_name: back
@@ -26,8 +26,17 @@ services:
       - 5000:5000
     env_file: .env
     networks:
-      - transcendance
-#==============================VOLUMES
+      - game_network
+  #==============================POSTGRESQL
+  postgredb:
+    image: postgres:latest
+    container_name: postgredb
+    volumes:
+      - postgredb:/var/lib/postgresql/data
+    networks:
+      - game_network
+    env_file: .env
+  #==============================VOLUMES
 volumes:
   frontend:
     driver: local
@@ -41,7 +50,8 @@ volumes:
       type: "none"
       o: "bind"
       device: "${PWD}/back/src"
+  postgredb:
 #==============================NETWORK
 networks:
-  transcendance:
+  game_network:
     driver: bridge

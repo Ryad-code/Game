@@ -4,4 +4,4 @@ WORKDIR /src
 
 EXPOSE  5000
 
-CMD     ["/bin/bash", "-c", "npm install && npm start"]
+CMD     ["/bin/bash", "-c", "npm install && npx prisma db push && npx prisma generate && npm start"]
