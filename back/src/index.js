@@ -10,22 +10,19 @@ const prisma = new PrismaClient();
 
 app.use(cors());
 
-let s1 = "bonjour";
-let s2 = "aurevoir";
-
 app.get("/", (req, res) => {
   res.json({ message: "U asked for: /" });
 });
 
-app.post("/users", async (req, res) => {
+app.get("/test", (req, res) => {
+  res.json({ message: "Test route" });
+});
+
+app.post("/create/user", async (req, res) => {
   const user = await prisma.user.create({
     data: { name: "Ryad", email: "ryad@gmail.com", password: "password" },
   });
   res.json({ user: user });
-});
-
-app.get("/api", (req, res) => {
-  res.json({ message: "U asked for: /api" });
 });
 
 app.get("/users", async (req, res) => {
