@@ -30,6 +30,19 @@ app.get("/users", async (req, res) => {
   res.json({ users });
 });
 
+app.get("/user/:id", async (req, res) => {
+  var userId = parseInt(req.params.id, 10);
+  console.log(userId);
+  console.log(req.params);
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  if (!user) res.status().json({ message: "User not found" });
+  res.json(user);
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

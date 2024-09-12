@@ -20,6 +20,7 @@ services:
     build:
       context: back/
       dockerfile: Dockerfile
+    restart: always #============WARNING
     volumes:
       - backend:/src
     ports:
